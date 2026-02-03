@@ -14,7 +14,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private string restaurantEmail;
         // ref
         private List<Menu> menus;
-        private List<Order> orders;
+        private Queue<Order> orderQueue;
 
         // properties
         public string RestaurantId
@@ -38,17 +38,17 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return menus; }
             set { menus = value; }
         }
-        public List<Order> Orders
+        public Queue<Order> OrderQueue
         {
-            get { return orders; }
-            set {  orders = value; }
+            get { return orderQueue; }
+            set {  orderQueue = value; }
         }
 
         // default constructors
         public Restaurant()
         {
             menus = new List<Menu>();
-            orders = new List<Order>();
+            orderQueue = new Queue<Order>();
         }
         // parameterized constructor
         public Restaurant(string rid, string rname, string remail)
@@ -57,20 +57,20 @@ namespace PRG2_ASG_Gruberoo_Del_System
             RestaurantName = rname;
             RestaurantEmail = remail;
             menus = new List<Menu>();
-            orders = new List<Order>();
+            orderQueue = new Queue<Order>();
         }
 
         // other methods
         public void DisplayOrders()
         {
-            foreach (Order order in orders)
+            foreach (Order order in orderQueue)
             {
                 Console.WriteLine(order);
             }
         }
         public void ShowSpecialOffers()
         {
-            foreach(Order order in orders)
+            foreach(Order order in orderQueue)
             {
                 // check if the order has a special offer - if not null
                 if (order.SpecialOffer != null)
