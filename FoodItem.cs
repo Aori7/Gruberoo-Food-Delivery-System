@@ -8,12 +8,12 @@ namespace PRG2_ASG_Gruberoo_Del_System
 {
     class FoodItem
     {
-        // properties
+        // private attributes
         private string itemName;
         private string itemDesc;
         private double itemPrice;
         private string customise;
-
+        // properties
         public string ItemName
         {
             get { return itemName; }
@@ -38,12 +38,8 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // default constructor
         public FoodItem()
         {
-            this.itemName = "";
-            this.itemDesc = "";
-            this.itemPrice = 0.0;
-            this.customise = "";
         }
-        // constructor
+        // parameterized constructor
         public FoodItem(string itemName, string itemDesc, double itemPrice, string customise)
         {
             this.itemName = itemName;
