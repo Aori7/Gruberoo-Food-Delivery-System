@@ -22,7 +22,12 @@ namespace PRG2_ASG_Gruberoo_Del_System
         //ref
         // orderedfooditem
         private List<OrderedFoodItem> orderedFoodItems;
+        //customer
+        private Customer customer;
         // special offer
+        private SpecialOffer specialOffer;
+        //restaurant
+        private Restaurant restaurant;
 
         //properties
         public int OrderId
@@ -50,6 +55,11 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return deliveryDateTime; }
             set { deliveryDateTime = value; }
         }
+        public string DeliveryAddress
+        {
+            get { return deliveryAddress; }
+            set { deliveryAddress = value; }
+        }
         public string OrderPaymentMethod
         {
             get { return orderPaymentMethod; }
@@ -66,6 +76,21 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return  orderedFoodItems; }
             set { orderedFoodItems = value; }
         }
+        public Customer Customer
+        {
+            get { return customer; }
+            set {  customer = value; }
+        }
+        public SpecialOffer SpecialOffer
+        {
+            get { return specialOffer; }
+            set { specialOffer = value; }
+        }
+        public Restaurant Restaurant
+        {
+            get { return restaurant; }
+            set { restaurant = value; }
+        }
 
         //constructor
         //default constructor
@@ -74,7 +99,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
             orderedFoodItems = new List<OrderedFoodItem>();
         }
         // parameterized constructor
-        public Order(int id, DateTime odt, string stat, DateTime ddt, string add, string pym, bool op)
+        public Order(int id, DateTime odt, string stat, DateTime ddt, string add, string pym, bool op, Customer cust, Restaurant rest)
         {
             orderId = id;
             orderDateTime = odt;
@@ -85,6 +110,9 @@ namespace PRG2_ASG_Gruberoo_Del_System
             orderPaymentMethod = pym;
             orderPaid = op;
             orderedFoodItems = new List<OrderedFoodItem>();
+
+            customer = cust;
+            restaurant = rest;
         }
 
         //other methods
