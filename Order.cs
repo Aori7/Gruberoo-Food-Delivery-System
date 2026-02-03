@@ -18,8 +18,10 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private string deliveryAddress;
         private string orderPaymentMethod;
         private bool orderPaid;
+
         //ref
         // orderedfooditem
+        private List<OrderedFoodItem> orderedFoodItems;
         // special offer
 
         //properties
@@ -40,12 +42,12 @@ namespace PRG2_ASG_Gruberoo_Del_System
         }
         public string OrderStatus
         {
-            get { return OrderStatus; }
-            set { OrderStatus = value; }
+            get { return orderStatus; }
+            set { orderStatus = value; }
         }
         public DateTime DeliveryDateTime
         {
-            get { return  deliveryDateTime; }
+            get { return deliveryDateTime; }
             set { deliveryDateTime = value; }
         }
         public string OrderPaymentMethod
@@ -59,41 +61,62 @@ namespace PRG2_ASG_Gruberoo_Del_System
             set { orderPaid = value; }
         }
         // ref
+        public List<OrderedFoodItem> OrderedFoodItems
+        {
+            get { return  orderedFoodItems; }
+            set { orderedFoodItems = value; }
+        }
 
         //constructor
         //default constructor
         public Order()
         {
-
+            orderedFoodItems = new List<OrderedFoodItem>();
         }
         // parameterized constructor
-        public Order(int id, DateTime odt, double ot, string stat, DateTime ddt, string add, string pym, bool op)
+        public Order(int id, DateTime odt, string stat, DateTime ddt, string add, string pym, bool op)
         {
             orderId = id;
             orderDateTime = odt;
-            orderTotal = ot;
+            orderTotal = 0.0;
             orderStatus = stat;
             deliveryDateTime = ddt;
-            orderPaymentMethod = add;
+            deliveryAddress = add;
+            orderPaymentMethod = pym;
             orderPaid = op;
+            orderedFoodItems = new List<OrderedFoodItem>();
         }
 
         //other methods
         public double CalculateOrderTotal()
         {
-
+            double ordertotal = 0.0;
+            foreach (OrderedFoodItem item in orderedFoodItems) 
+            {
+                ordertotal += item.CalculateSubtotal();
+            }
+            orderTotal = ordertotal;
+            return ordertotal;
         }
-        public void AddOrderedFoodItem() // ref method
+        public void AddOrderedFoodItem(OrderedFoodItem orderedFoodItem) // ref method
         {
-
+            orderedFoodItems.Add(orderedFoodItem);
+            CalculateOrderTotal();
         }
-        public bool RemoveOrderedFoodItem() // ref method
+        public bool RemoveOrderedFoodItem(OrderedFoodItem orderedFoodItem) // ref method
         {
-
+            // return true if removed
+            bool orderremoved = orderedFoodItems.Remove(orderedFoodItem);
+            // calc new total
+            CalculateOrderTotal();
+            return orderremoved;
         }
         public void DisplayOrderedFoodItems()
         {
-
+            foreach(OrderedFoodItem item in orderedFoodItems)
+            {
+                Console.WriteLine(item);
+            }
         }
         // override tostring
         public override string ToString()
