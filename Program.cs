@@ -1,2 +1,3 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿// student number: S10275270A
+// Student name: Adawiyah
+// Partner Name: Rui Min

@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace PRG2_ASG_Gruberoo_Del_System
 {
-    internal class OrderedFoodItem
+    class OrderedFoodItem : FoodItem 
     {
+        private int qtyOrdered;
+        private double subTotal;
+
     }
 }
