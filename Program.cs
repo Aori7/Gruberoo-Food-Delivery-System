@@ -1,6 +1,6 @@
-﻿// Student Number:
-// Student Name: 
-// Partner Name: 
+﻿// Student Number: S10275270A
+// Student Name: Adawiyah
+// Partner Name: Rui Min
 
 using PRG2_ASG_Gruberoo_Del_System;
 
@@ -18,3 +18,29 @@ using PRG2_ASG_Gruberoo_Del_System;
 // todo 8: delete an existing order
 
 // ==============================================
+
+// stage 1
+// load files (customers and orders)
+
+// load, read, and create objects - customer
+List<Customer> customerList = new List<Customer>();
+
+
+void loadCust()
+{
+    // read file
+    string[] csvLines = File.ReadAllLines("customers.csv");
+    // line 1 is the header of file, skip
+    for (int i = 1; i < csvLines.Length; i++) // start from row 2 (row 1 is header)
+    {
+        string[] custInfo = csvLines[i].Split(",");
+        string custname = custInfo[0];
+        string custemail = custInfo[1];
+
+        //add new cust objects
+        Customer cust = new Customer(custemail,custname);
+        customerList.Add(cust);
+    }
+}
+loadCust();
+
