@@ -53,9 +53,9 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // parameterized constructor
         public Restaurant(string rid, string rname, string remail)
         {
-            restaurantId = rid;
-            restaurantName = rname;
-            restaurantEmail = remail;
+            RestaurantId = rid;
+            RestaurantName = rname;
+            RestaurantEmail = remail;
             menus = new List<Menu>();
             orders = new List<Order>();
         }

@@ -12,6 +12,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private string emailAddress;
         private string customerName;
         //ref
+        private List<Order> orders;
 
         // properties
         public string EmailAddress
@@ -25,30 +26,41 @@ namespace PRG2_ASG_Gruberoo_Del_System
             set { customerName = value; }
         }
         //ref
-
+        public List<Order> Orders
+        {
+            get { return orders; }
+            set { orders = value; }
+        }
 
         // constructor
         // default
-        public Customer() { }
+        public Customer()
+        {
+            orders = new List<Order>();
+        }
 
         // parameterized constructor
         public Customer(string email, string name)
         {
-            emailAddress = email;
-            customerName = name;
+            EmailAddress = email;
+            CustomerName = name;
+            orders = new List<Order>();
         }
         //other methods
-        public void AddOrder()
+        public void AddOrder(Order order)
         {
-
+            orders.Add(order);
         }
         public void DisplayAllOrders()
         {
-
+            foreach (Order order in orders)
+            {
+                Console.WriteLine(order);
+            }
         }
-        public bool RemoveOrder()
+        public bool RemoveOrder(Order order)
         {
-
+            return orders.Remove(order);
         }
         // to string
         public override string ToString()

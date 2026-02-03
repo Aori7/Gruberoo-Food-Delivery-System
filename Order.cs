@@ -101,14 +101,14 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // parameterized constructor
         public Order(int id, DateTime odt, string stat, DateTime ddt, string add, string pym, bool op, Customer cust, Restaurant rest)
         {
-            orderId = id;
-            orderDateTime = odt;
-            orderTotal = 0.0;
-            orderStatus = stat;
-            deliveryDateTime = ddt;
-            deliveryAddress = add;
-            orderPaymentMethod = pym;
-            orderPaid = op;
+            OrderId = id;
+            OrderDateTime = odt;
+            OrderTotal = 0.0;
+            OrderStatus = stat;
+            DeliveryDateTime = ddt;
+            DeliveryAddress = add;
+            OrderPaymentMethod = pym;
+            OrderPaid = op;
             orderedFoodItems = new List<OrderedFoodItem>();
 
             customer = cust;

@@ -38,9 +38,9 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // parameterized constructor
         public SpecialOffer(string oc, string od, double d) 
         {
-            offerCode = oc;
-            offerDesc = od;
-            discount = d;
+            OfferCode = oc;
+            OfferDesc = od;
+            Discount = d;
         }
 
         // to string method
