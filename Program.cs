@@ -18,3 +18,55 @@ using PRG2_ASG_Gruberoo_Del_System;
 // todo 8: delete an existing order
 
 // ==============================================
+
+// initialise a list to hold all restaurants's details
+List<Restaurant> restaurants = new List<Restaurant>();
+// method to load the file into the collection
+void LoadRestaurants()
+{
+    string[] lines = File.ReadAllLines("restaurants.csv");
+    for (int i = 1; i < lines.Length; i++)
+    {
+        string[] data = lines[i].Split(',');
+        string id = data[0];
+        string name = data[1];
+        string email = data[2];
+        Restaurant rest = new Restaurant(id, name, email);
+        restaurants.Add(rest);
+    }
+}
+LoadRestaurants();
+
+// method to load the file into the collection
+void LoadFoodItems()
+{
+    string[] lines = File.ReadAllLines("fooditems.csv");
+    for (int i = 1; i < lines.Length; i++)
+    {
+        string[] data = lines[i].Split(',');
+        string restId = data[0];
+        string name = data[1];
+        string desc = data[2];
+        double price = Convert.ToDouble(data[3]);
+        FoodItem fi = new FoodItem(name, desc, price);
+        foreach (Restaurant rest in restaurants)
+        {
+            if (rest.RestaurantId == restId)
+            {
+                rest.FoodItems.Add(fi);
+            }
+        }
+    }
+}
+LoadFoodItems();
+
+// checking
+foreach (Restaurant restaurant in restaurants)
+{
+    Console.WriteLine(restaurant);
+}
+foreach (Restaurant restaurant in restaurants)
+{
+    foreach (FoodItem fi in restaurant.FoodItems)
+        Console.WriteLine(fi);
+}

@@ -40,7 +40,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         {
         }
         // parameterized constructor
-        public FoodItem(string itemName, string itemDesc, double itemPrice, string customise)
+        public FoodItem(string itemName, string itemDesc, double itemPrice, string customise="")
         {
             this.itemName = itemName;
             this.itemDesc = itemDesc;
