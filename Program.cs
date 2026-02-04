@@ -19,13 +19,15 @@ using PRG2_ASG_Gruberoo_Del_System;
 
 // ==============================================
 
-// stage 1
+// STAGE 1
+// feature 1 ====================================
 // load files (customers and orders)
 
-// load, read, and create objects - customer
 List<Customer> customerList = new List<Customer>();
+List<Restaurant> restaurantList = new List<Restaurant>();
 
 
+// load, read, and create objects - customer
 void loadCust()
 {
     // read file
@@ -44,3 +46,90 @@ void loadCust()
 }
 loadCust();
 
+
+// load,read, and create objects - order
+//method to find customers by email (used for loadorder method)
+Customer findCustByEmail(string custemail)
+{
+    foreach (Customer custe in customerList)
+    {
+        if (custe.EmailAddress == custemail)
+            // return the customer if email matches
+            return custe;
+    }
+    return null;
+}
+Restaurant findRestById(string restId)
+{
+    foreach (Restaurant rest in restaurantList)
+    {
+        if (rest.RestaurantId == restId)
+            return rest;
+    }
+    return null;
+}
+void loadOrder()
+{
+    // read file
+    string[] csvLines = File.ReadAllLines("orders.csv");
+    // skip line 1
+    for (int i = 1; i < csvLines.Length; i++)
+    {
+        string[] orderInfo = csvLines[i].Split(",");
+
+        int orderId = Convert.ToInt32(orderInfo[0]);
+        string custemail = orderInfo[1];
+        string restId = orderInfo[2];
+        //DateTime delDate = Convert.ToDateTime(orderInfo[3]);
+        //DateTime delTime = Convert.ToDateTime(orderInfo[4]);
+        DateTime deldatetime = Convert.ToDateTime(orderInfo[3] + " " + orderInfo[4]);    // combine deldate + deltime tgt, order deliveryDateTime
+        string delAddr = orderInfo[5]; //order deliveryAddress
+        DateTime orderdatetime = Convert.ToDateTime(orderInfo[6]); //order orderDateTime
+        //double totalamt = Convert.ToDouble(orderInfo[7]); //order orderTotal - excluding total amount as it can be calculated with method?
+        string stat = orderInfo[8]; //order orderPaid bool
+
+        // find customer thru email
+        // using method
+        Customer cust = findCustByEmail(custemail);
+        if (cust == null)
+        {
+            continue; // skip if customer not found
+        }
+        // find restaurant using method
+        Restaurant rest = findRestById(restId);
+        if (rest == null)
+        {
+            continue; // skip if not found
+        }
+
+        // item column of order.csv is delimited by |
+        //eg. "Chicken Katsu Bento, 1|Vegetable Tempura Bento, 1"
+        string itemtrim = orderInfo[9].Trim('"');         // trim the "" frst
+        string[] items = itemtrim.Split("|");         // split the items with |
+
+        // create order object
+        Order order = new Order(orderId,orderdatetime,stat,deldatetime,delAddr,"",false,cust,rest);
+
+        // now split each items into name and qty
+        foreach (string item in items) 
+        {
+            string[] itemparts = item.Split(',', 2);
+
+            if (itemparts.Length < 2)
+                continue;
+            string foodname = itemparts[0].Trim();
+            int qty = Convert.ToInt32(itemparts[1].Trim());
+            // add object, set unknown values to empty 
+            OrderedFoodItem fooditem = new OrderedFoodItem(foodname,"",0.0,"",qty);
+
+            //add to order
+            order.AddOrderedFoodItem(fooditem);
+        }
+        // add order to the customer
+        cust.AddOrder(order);
+        // add the order to the order queue
+        rest.OrderQueue.Enqueue(order);
+    }
+}
+// order.csv has 10 cols, last col split items by |
+loadOrder();
