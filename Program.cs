@@ -1,6 +1,6 @@
-﻿// Student Number:
-// Student Name: 
-// Partner Name: 
+﻿// Student Number: S10272389
+// Student Name: Chi Rui Min
+// Partner Name: Adawiyah
 
 using PRG2_ASG_Gruberoo_Del_System;
 
