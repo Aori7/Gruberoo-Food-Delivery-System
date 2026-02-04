@@ -33,28 +33,28 @@ namespace PRG2_ASG_Gruberoo_Del_System
         //default constructor   
         public Menu()
         {
-            foodItems = new List<FoodItem>();
+            FoodItems = new List<FoodItem>();
         }
         //parameterized constructor
         public Menu(string menuId, string menuName)
         {
             this.menuId = menuId;
             this.menuName = menuName;
-            foodItems = new List<FoodItem>();
+            FoodItems = new List<FoodItem>();
         }
 
         //other methods
         public void AddFoodItem(FoodItem foodItem)
         {
-            foodItems.Add(foodItem);
+            FoodItems.Add(foodItem);
         }
         public bool RemoveFoodItem(FoodItem foodItem)
         {
-            return foodItems.Remove(foodItem);
+            return FoodItems.Remove(foodItem);
         }
         public void DisplayFoodItems()
         {
-            foreach (FoodItem item in foodItems) 
+            foreach (FoodItem item in FoodItems) 
             {
                 Console.WriteLine(item);
             }

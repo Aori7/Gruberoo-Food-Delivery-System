@@ -3,6 +3,7 @@
 // Partner Name: Adawiyah
 
 using PRG2_ASG_Gruberoo_Del_System;
+using System.Text;
 
 // =============== basic features ===============
 // student 1: ada [TODO: 2,3,5,7 ]
@@ -53,7 +54,14 @@ void LoadFoodItems()
         {
             if (rest.RestaurantId == restId)
             {
-                rest.FoodItems.Add(fi);
+                foreach (Menu menu in rest.Menus)
+                {
+                    menu.AddFoodItem(fi);
+                }
+            }
+            else
+            {
+                continue;
             }
         }
     }
@@ -67,6 +75,11 @@ foreach (Restaurant restaurant in restaurants)
 }
 foreach (Restaurant restaurant in restaurants)
 {
-    foreach (FoodItem fi in restaurant.FoodItems)
-        Console.WriteLine(fi);
+    foreach (Menu menu in restaurant.Menus)
+    {
+        menu.DisplayFoodItems();
+    }   
 }
+
+
+//removed foodItems attributions and more from restaurant class. decided since they are not directly linked in diagram they should not directly refer to each other
