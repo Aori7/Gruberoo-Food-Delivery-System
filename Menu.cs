@@ -11,7 +11,10 @@ namespace PRG2_ASG_Gruberoo_Del_System
         //private attributes
         private string menuId;
         private string menuName;
+        //ref
         private List<FoodItem> foodItems;
+        private Restaurant restaurant;
+
         // properties
         public string MenuId
         {
@@ -28,19 +31,26 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return foodItems; }
             set { foodItems = value; }
         }
+        public Restaurant Restaurant
+        {
+            get { return restaurant;}
+            set { restaurant = value; }
+        }
 
         //constructors
         //default constructor   
         public Menu()
         {
             FoodItems = new List<FoodItem>();
+            Restaurant = new Restaurant();
         }
         //parameterized constructor
-        public Menu(string menuId, string menuName)
+        public Menu(string id, string name)
         {
-            this.menuId = menuId;
-            this.menuName = menuName;
+            MenuId = id;
+            MenuName = name;
             FoodItems = new List<FoodItem>();
+            Restaurant = new Restaurant();
         }
 
         //other methods
@@ -50,14 +60,37 @@ namespace PRG2_ASG_Gruberoo_Del_System
         }
         public bool RemoveFoodItem(FoodItem foodItem)
         {
-            return FoodItems.Remove(foodItem);
+            if (FoodItems.Count == 0)
+            {
+                Console.WriteLine("No food items to remove");
+                return false;
+            }
+            else
+            {
+                foreach (FoodItem fi in FoodItems)
+                {
+                    if (fi == foodItem)
+                    {
+                        FoodItems.Remove(foodItem);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         public void DisplayFoodItems()
         {
-            foreach (FoodItem item in FoodItems) 
+            if(FoodItems.Count == 0)
             {
-                Console.WriteLine(item);
+                Console.WriteLine("no food items in this menu");
             }
+            else
+            {
+                foreach (FoodItem item in FoodItems)
+                {
+                    Console.WriteLine(item);
+                }
+            }    
         }
         //to string method
         public override string ToString()

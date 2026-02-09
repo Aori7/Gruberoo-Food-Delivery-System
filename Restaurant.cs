@@ -15,7 +15,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // ref
         private List<Menu> menus = new List<Menu>();
         private Queue<Order> orderQueue;
-        //private List<FoodItem> foodItems = new List<FoodItem>();      unsure
+        private List<SpecialOffer> specialOfferList;
 
         // properties
         public string RestaurantId
@@ -44,11 +44,11 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return orderQueue; }
             set {  orderQueue = value; }
         }
-        //public List<FoodItem> FoodItems           unsure
-        //{
-        //    get { return foodItems; }
-        //    set { foodItems = value; }
-        //}
+        public List<SpecialOffer> SpecialOfferList
+        {
+            get { return specialOfferList; }
+            set { specialOfferList = value; }
+        }
 
         // default constructors
         public Restaurant()
@@ -66,8 +66,8 @@ namespace PRG2_ASG_Gruberoo_Del_System
             {
                 Menus.Add(new Menu()); 
             }
-            orderQueue = new Queue<Order>();
-            //FoodItems = new List<FoodItem>();             unsure
+            OrderQueue = new Queue<Order>();
+            SpecialOfferList = new List<SpecialOffer>();
         }
 
         // other methods
@@ -80,18 +80,21 @@ namespace PRG2_ASG_Gruberoo_Del_System
         }
         public void ShowSpecialOffers()
         {
-            foreach(Order order in orderQueue)
+            if(SpecialOfferList.Count == 0)
             {
-                // check if the order has a special offer - if not null
-                if (order.SpecialOffer != null)
+                Console.WriteLine("No special offers");
+            }
+            else
+            {
+                foreach(SpecialOffer so in SpecialOfferList)
                 {
-                    Console.WriteLine(order.SpecialOffer);
+                    so.ToString();
                 }
             }
         }
         public void DisplayMenu()
         {
-            foreach (Menu menu in menus) 
+            foreach (Menu menu in Menus) 
             {
                 Console.WriteLine(menu);
                 menu.DisplayFoodItems();
@@ -99,11 +102,27 @@ namespace PRG2_ASG_Gruberoo_Del_System
         }
         public void AddMenu(Menu menu)
         {
-            menus.Add(menu);
+            Menus.Add(menu);
         }
         public bool RemoveMenu(Menu menu) 
         {
-            return menus.Remove(menu);
+            if(Menus.Count == 0)
+            {
+                Console.WriteLine("No menus to remove");
+                return false;
+            }
+            else
+            {
+                foreach(Menu m in Menus)
+                {
+                    if(m == menu)
+                    {
+                        Menus.Remove(menu);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
 
         //override tostring
