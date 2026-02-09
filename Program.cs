@@ -40,6 +40,34 @@ void LoadRestaurants()
     }
 }
 LoadRestaurants();
+void LoadFoodItems()
+{
+    string[] lines = File.ReadAllLines("fooditems.csv");
+    for (int i = 1; i < lines.Length; i++)
+    {
+        string[] data = lines[i].Split(',');
+        string restId = data[0];
+        string name = data[1];
+        string desc = data[2];
+        double price = Convert.ToDouble(data[3]);
+        FoodItem fi = new FoodItem(name, desc, price, null);
+        foreach (Restaurant rest in restaurants)
+        {
+            if (rest.RestaurantId == restId)
+            {
+                foreach (Menu menu in rest.Menus)
+                {
+                    menu.AddFoodItem(fi);
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
+    }
+}
+LoadFoodItems();
 // ===============================================================================
 
 // STAGE 1
@@ -126,3 +154,22 @@ void loadOrder()
 }
 loadOrder();
 
+// feature 2
+// todo 3: list all restaurants and menu items
+void displayRestMenu()
+{
+    Console.WriteLine("All Restaurant and Menu Items");
+    Console.WriteLine("=============================");
+    foreach(Restaurant restaurant in restaurants)
+    {
+        Console.WriteLine($"Restaurant: {restaurant.RestaurantName} ({restaurant.RestaurantId})");
+        foreach(Menu menu in restaurant.Menus)
+        {
+            foreach(FoodItem item in menu.FoodItems)
+            {
+                Console.WriteLine($"    - {item.ItemName}: {item.ItemDesc} - ${item.ItemPrice}");
+            }
+        }
+    }
+}
+displayRestMenu();
