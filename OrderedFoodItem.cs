@@ -11,6 +11,9 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // attributes
         private int qtyOrdered;
         private double subTotal;
+        // ref
+        private Order ord;
+
         // properties
         public int QtyOrdered
         {
@@ -22,20 +25,25 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return subTotal; }
             set { subTotal = value; }
         }
+        public Order Ord
+        {
+            get { return ord; }
+            set { ord = value; }
+        }
+
         //default constructor
         // empty parameter
-        public OrderedFoodItem() : base()
+        public OrderedFoodItem(Order ord) : base()
         {
-            qtyOrdered = 0;
-            subTotal = 0;
+            QtyOrdered = 0;
+            SubTotal = 0;
+            Ord = ord;
         }
         // parameterized constructor
-        public OrderedFoodItem(string itemName, string itemDesc, double itemPrice, string customise, int qtyOrdered)
+        public OrderedFoodItem(string itemName, string itemDesc, double itemPrice, string? customise, int qtyOrdered)
             : base(itemName, itemDesc, itemPrice, customise)
         {
             this.qtyOrdered = qtyOrdered;
-            // call method
-            this.subTotal = CalculateSubtotal();
         }
         // other methods
         public double CalculateSubtotal()

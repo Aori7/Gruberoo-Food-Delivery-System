@@ -20,13 +20,9 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private bool orderPaid;
 
         //ref
-        // orderedfooditem
         private List<OrderedFoodItem> orderedFoodItems;
-        //customer
         private Customer customer;
-        // special offer
         private SpecialOffer specialOffer;
-        //restaurant
         private Restaurant restaurant;
 
         //properties
@@ -92,52 +88,62 @@ namespace PRG2_ASG_Gruberoo_Del_System
             set { restaurant = value; }
         }
 
-        //constructor
+        //constructors
         //default constructor
         public Order()
         {
-            orderedFoodItems = new List<OrderedFoodItem>();
+            OrderedFoodItems = new List<OrderedFoodItem>();
         }
         // parameterized constructor
-        public Order(int id, DateTime odt, string stat, DateTime ddt, string add, string pym, bool op, Customer cust, Restaurant rest)
+        public Order(int id, DateTime odt, string stat, DateTime ddt, string add, string pym, bool op, Customer cust, Restaurant rest, SpecialOffer? so)
         {
             OrderId = id;
             OrderDateTime = odt;
-            OrderTotal = 0.0;
+            OrderTotal = 0;
             OrderStatus = stat;
             DeliveryDateTime = ddt;
             DeliveryAddress = add;
             OrderPaymentMethod = pym;
             OrderPaid = op;
-            orderedFoodItems = new List<OrderedFoodItem>();
 
-            customer = cust;
-            restaurant = rest;
+            OrderedFoodItems = new List<OrderedFoodItem>();
+            Customer = cust;
+            Restaurant = rest;
+            SpecialOffer = so;
         }
 
-        //other methods
+        // methods
         public double CalculateOrderTotal()
         {
-            double ordertotal = 0.0;
+            double Ordertotal = 0;
             foreach (OrderedFoodItem item in orderedFoodItems) 
             {
-                ordertotal += item.CalculateSubtotal();
+                Ordertotal += item.CalculateSubtotal();
             }
-            orderTotal = ordertotal;
-            return ordertotal;
+            return Ordertotal;
         }
         public void AddOrderedFoodItem(OrderedFoodItem orderedFoodItem) // ref method
         {
             orderedFoodItems.Add(orderedFoodItem);
-            CalculateOrderTotal();
         }
         public bool RemoveOrderedFoodItem(OrderedFoodItem orderedFoodItem) // ref method
         {
-            // return true if removed
-            bool orderremoved = orderedFoodItems.Remove(orderedFoodItem);
-            // calc new total
-            CalculateOrderTotal();
-            return orderremoved;
+            if(OrderedFoodItems.Count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                foreach(OrderedFoodItem ordFI  in OrderedFoodItems)
+                {
+                    if(ordFI == orderedFoodItem)
+                    {
+                        OrderedFoodItems.Remove(orderedFoodItem);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
         public void DisplayOrderedFoodItems()
         {

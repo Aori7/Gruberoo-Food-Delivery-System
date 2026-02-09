@@ -44,12 +44,12 @@ namespace PRG2_ASG_Gruberoo_Del_System
         {
             EmailAddress = email;
             CustomerName = name;
-            orders = new List<Order>();
+            Orders = new List<Order>();
         }
         //other methods
         public void AddOrder(Order order)
         {
-            orders.Add(order);
+            Orders.Add(order);
         }
         public void DisplayAllOrders()
         {
@@ -60,8 +60,25 @@ namespace PRG2_ASG_Gruberoo_Del_System
         }
         public bool RemoveOrder(Order order)
         {
-            return orders.Remove(order);
+            if (Orders.Count == 0)
+            {
+                Console.WriteLine("No orders to remove");
+                return false;
+            }
+            else
+            {
+                foreach (Order ord in Orders)
+                {
+                    if (ord == order)
+                    {
+                        Orders.Remove(order);
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
+
         // to string
         public override string ToString()
         {

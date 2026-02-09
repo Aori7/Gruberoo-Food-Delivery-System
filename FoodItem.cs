@@ -12,7 +12,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private string itemName;
         private string itemDesc;
         private double itemPrice;
-        private string customise;
+        private string? customise;
         // properties
         public string ItemName
         {
@@ -29,7 +29,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return itemPrice; }
             set { itemPrice = value; }
         }
-        public string Customise
+        public string? Customise
         {
             get { return customise; }
             set { customise = value; }
@@ -40,12 +40,12 @@ namespace PRG2_ASG_Gruberoo_Del_System
         {
         }
         // parameterized constructor
-        public FoodItem(string itemName, string itemDesc, double itemPrice, string customise="")
+        public FoodItem(string itemName, string itemDesc, double itemPrice, string? customise)
         {
-            this.itemName = itemName;
-            this.itemDesc = itemDesc;
-            this.itemPrice = itemPrice;
-            this.customise = customise;
+            ItemName = itemName;
+            ItemDesc = itemDesc;
+            ItemPrice = itemPrice;
+            Customise = customise;
         }
 
         // to string

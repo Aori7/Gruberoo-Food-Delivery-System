@@ -12,7 +12,9 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private string offerCode;
         private string offerDesc;
         private double discount;
-
+        // ref
+        private Restaurant rest;
+        private List<Order> orderList;
 
         //properties
         public string OfferCode 
@@ -29,18 +31,30 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return discount; } 
             set { discount = value; }
         }
-
+        //ref
+        public Restaurant Rest
+        {
+            get { return rest; }
+            set { rest = value; }
+        }
+        public List<Order> OrderList
+        {
+            set {  orderList = value; }
+            get { return orderList; }
+        }
 
         // default constructor
         public SpecialOffer() 
         {
         }
         // parameterized constructor
-        public SpecialOffer(string oc, string od, double d) 
+        public SpecialOffer(string oc, string od, double d, Restaurant rest) 
         {
             OfferCode = oc;
             OfferDesc = od;
             Discount = d;
+            Rest = rest;
+            OrderList = new List<Order>();
         }
 
         // to string method

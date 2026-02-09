@@ -1,8 +1,9 @@
-﻿// Student Number:
-// Student Name: 
-// Partner Name: 
+﻿// Student Number: S10272389
+// Student Name: Chi Rui Min
+// Partner Name: Adawiyah
 
 using PRG2_ASG_Gruberoo_Del_System;
+using System.Text;
 
 // =============== basic features ===============
 // student 1: ada [TODO: 2,3,5,7 ]
