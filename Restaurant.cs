@@ -15,6 +15,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         // ref
         private List<Menu> menus;
         private Queue<Order> orderQueue;
+        private List<FoodItem> foodItems = new List<FoodItem>();
 
         // properties
         public string RestaurantId
@@ -43,6 +44,11 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return orderQueue; }
             set {  orderQueue = value; }
         }
+        public List<FoodItem> FoodItems
+        {
+            get { return foodItems; }
+            set { foodItems = value; }
+        }
 
         // default constructors
         public Restaurant()
@@ -58,6 +64,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
             RestaurantEmail = remail;
             menus = new List<Menu>();
             orderQueue = new Queue<Order>();
+            FoodItems = new List<FoodItem>();
         }
 
         // other methods
