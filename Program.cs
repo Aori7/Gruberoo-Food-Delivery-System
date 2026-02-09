@@ -82,4 +82,4 @@ foreach (Restaurant restaurant in restaurants)
 }
 
 
-//removed foodItems attributions and more from restaurant class. decided since they are not directly linked in diagram they should not directly refer to each other
+// ehehe
