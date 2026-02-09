@@ -3,6 +3,7 @@
 // Partner Name: Rui Min
 
 using PRG2_ASG_Gruberoo_Del_System;
+using System.Text;
 
 // =============== basic features ===============
 // student 1: ada [TODO: 2,3,5,7 ]
