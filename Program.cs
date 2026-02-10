@@ -121,13 +121,13 @@ while (true)
     else if (choice == "7")
     {
         Console.WriteLine();
-        displayTotalOrderAmt();
+        TodaysUnprocessedOrders();
         continue;
     }
     else if (choice == "8")
     {
         Console.WriteLine();
-        TodaysUnprocessedOrders();
+        displayTotalOrderAmt();
         continue;
     }
     else if (choice == "0")
