@@ -22,8 +22,8 @@ using System.IO;
 
 // ==============================================
 
-//=========================================================================
-// RUI MIN'S RESTAURANT LOADING FEATURE, REMOVE AFTER FINALISED!!! ========================
+//===============================================================
+// RUI MIN'S RESTAURANT LOADING FEATURE, REMOVE AFTER FINALISED!!! 
 // FOR TESTING PURPOSES
 // initialise a list to hold all restaurants's details
 List<Restaurant> restaurants = new List<Restaurant>();
@@ -70,19 +70,16 @@ void LoadFoodItems()
     }
 }
 LoadFoodItems();
-// ===============================================================================
+// ==============================================
 
 //program
 List<Customer> customerList = new List<Customer>();
 loadCust();
 loadOrder();
 
-// STAGE 1
 // feature 1 ====================================
-// load files (customers and orders)
+// todo 2: load files (customers and orders)
 
-
-// load, read, and create objects - customer
 void loadCust()
 {
     string[] csvLines = File.ReadAllLines("customers.csv");
@@ -154,7 +151,7 @@ void loadOrder()
     }
 }
 
-// feature 2
+// feature 2 ====================================
 // todo 3: list all restaurants and menu items
 void displayRestMenu()
 {
@@ -174,7 +171,7 @@ void displayRestMenu()
 }
 displayRestMenu();
 
-//feature 3
+//feature 3 ====================================
 // todo 5: create a new order
 string[] lines = File.ReadAllLines("orders.csv");
 string[] lastRow = lines[lines.Length - 1].Split(',');
@@ -340,9 +337,9 @@ void createnewOrder()
         sw.WriteLine(csvline);
     }
 }
-//createnewOrder();
+createnewOrder();
 
-// feature 4
+// feature 4 ====================================
 // todo 7: modify an existing order
 void modifyOrder()
 {
@@ -551,9 +548,9 @@ void modifyOrder()
         break;
     }
 }
-//modifyOrder();
+modifyOrder();
 
-// advanced feature (b)
+// advanced feature (b) =========================
 void displayTotalOrderAmt()
 {
     double totalorderAmt = 0;
