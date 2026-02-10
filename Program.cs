@@ -21,58 +21,8 @@ using System.IO;
 // todo 8: delete an existing order
 
 // ==============================================
-
-//===============================================================
-// RUI MIN'S RESTAURANT LOADING FEATURE, REMOVE AFTER FINALISED!!! 
-// FOR TESTING PURPOSES
-// initialise a list to hold all restaurants's details
-List<Restaurant> restaurants = new List<Restaurant>();
-// method to load the file into the collection
-void LoadRestaurants()
-{
-    string[] lines = File.ReadAllLines("restaurants.csv");
-    for (int i = 1; i < lines.Length; i++)
-    {
-        string[] data = lines[i].Split(',');
-        string id = data[0];
-        string name = data[1];
-        string email = data[2];
-        Restaurant rest = new Restaurant(id, name, email);
-        restaurants.Add(rest);
-    }
-}
-LoadRestaurants();
-void LoadFoodItems()
-{
-    string[] lines = File.ReadAllLines("fooditems.csv");
-    for (int i = 1; i < lines.Length; i++)
-    {
-        string[] data = lines[i].Split(',');
-        string restId = data[0];
-        string name = data[1];
-        string desc = data[2];
-        double price = Convert.ToDouble(data[3]);
-        FoodItem fi = new FoodItem(name, desc, price, null);
-        foreach (Restaurant rest in restaurants)
-        {
-            if (rest.RestaurantId == restId)
-            {
-                foreach (Menu menu in rest.Menus)
-                {
-                    menu.AddFoodItem(fi);
-                }
-            }
-            else
-            {
-                continue;
-            }
-        }
-    }
-}
-LoadFoodItems();
-// ==============================================
-
 //program
+List<Restaurant> restaurants = new List<Restaurant>();
 List<Customer> customerList = new List<Customer>();
 loadCust();
 loadOrder();
@@ -83,9 +33,10 @@ int newOrderId = Convert.ToInt32(lastRow[0]) + 1; // generate a new order id
 createnewOrder();
 modifyOrder();
 displayTotalOrderAmt();
+
+// Partner todo 1: load files (restaurants and food items) 
 // feature 1 ====================================
 // todo 2: load files (customers and orders)
-
 void loadCust()
 {
     string[] csvLines = File.ReadAllLines("customers.csv");
@@ -98,7 +49,6 @@ void loadCust()
         customerList.Add(cust);
     }
 }
-
 void loadOrder()
 {
     string[] csvLines = File.ReadAllLines("orders.csv");
@@ -176,10 +126,9 @@ void displayRestMenu()
     }
 }
 
-
+// Partner todo 4: list all orders with basic information
 //feature 3 ====================================
 // todo 5: create a new order
-
 void createnewOrder()
 {
     Console.WriteLine("Create New Order"); //display contents
@@ -348,7 +297,7 @@ void createnewOrder()
     }
 }
 
-
+// Parter todo 6: prompt an order
 // feature 4 ====================================
 // todo 7: modify an existing order
 void modifyOrder()
@@ -558,8 +507,8 @@ void modifyOrder()
         break;
     }
 }
-
-
+// Partner todo 8: delete an existing order
+// Partner advanced feature (a) =================
 // advanced feature (b) =========================
 void displayTotalOrderAmt()
 {
