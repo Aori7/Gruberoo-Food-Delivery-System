@@ -845,8 +845,8 @@ void DeleteOrder()
         }
         if (orderFound == null)
         {
-            Console.WriteLine("Invalid Order ID.");
             Console.WriteLine();
+            Console.WriteLine("Invalid Order ID.");
         }
     }
     // valid option======================================================
@@ -874,8 +874,8 @@ void DeleteOrder()
 
         else
         {
-            Console.WriteLine("Invalid Option.");
             Console.WriteLine();
+            Console.WriteLine("Invalid Option.");
         }
     }
 }
