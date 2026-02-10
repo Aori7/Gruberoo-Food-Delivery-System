@@ -5,6 +5,7 @@
 using PRG2_ASG_Gruberoo_Del_System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
+using System.IO;
 
 // =============== basic features ===============
 // student 1: ada [TODO: 2,3,5,7 ]
@@ -75,9 +76,6 @@ LoadFoodItems();
 List<Customer> customerList = new List<Customer>();
 loadCust();
 loadOrder();
-//displayRestMenu();
-//createnewOrder();
-modifyOrder();
 
 // STAGE 1
 // feature 1 ====================================
@@ -174,6 +172,7 @@ void displayRestMenu()
         }
     }
 }
+displayRestMenu();
 
 //feature 3
 // todo 5: create a new order
@@ -316,8 +315,33 @@ void createnewOrder()
     cust.AddOrder(order); // add to cust's order
     rest.OrderQueue.Enqueue(order); // add to order queue
     Console.WriteLine($"Order {order.OrderId} created successfully! Status: {order.OrderStatus}");
-    // Console.WriteLine($"Orders in queue for {rest.RestaurantId}: {rest.OrderQueue.Count}"); // test, remove after
+    string itemStr = "";
+    for (int i = 0; i < orderedfood.Count; i++) 
+    {
+        itemStr += orderedfood[i].ItemName + "," + orderedfood[i].QtyOrdered;
+        if (i < orderedfood.Count - 1)
+        {
+            itemStr +="|";
+        }
+    }
+    string csvline =
+    $"{order.OrderId}," +
+    $"{cust.EmailAddress}," +
+    $"{rest.RestaurantId}," +
+    $"{deldt:dd/MM/yyyy}," +
+    $"{deltime:HH:mm}," +
+    $"\"{delAddr}\"," +
+    $"{order.OrderDateTime:dd/MM/yyyy HH:mm}," +
+    $"{order.OrderTotal}," +
+    $"{order.OrderStatus}," +
+    $"\"{itemStr}\"";
+    using (StreamWriter sw = new StreamWriter("orders.csv", true))
+    {
+        sw.WriteLine(csvline);
+    }
 }
+createnewOrder();
+
 
 // feature 4
 // todo 7: modify an existing order
@@ -392,7 +416,6 @@ void modifyOrder()
             }
         }
     }
-
     Console.WriteLine("Order Items");
     int i = 1;
     foreach(OrderedFoodItem item in selectOrder.OrderedFoodItems)
@@ -401,12 +424,14 @@ void modifyOrder()
         i++;
     }
     Console.WriteLine("Address:" + "\n" + $"{selectOrder.DeliveryAddress}");
-    Console.WriteLine("Delivery Date/Time:" + "\n" + $"{selectOrder.DeliveryDateTime:dd/MM/yyyy},"+$"{selectOrder.DeliveryDateTime:hh:mm}");
+    Console.WriteLine("Delivery Date/Time:" + "\n" + $"{selectOrder.DeliveryDateTime:dd/MM/yyyy},"+$"{selectOrder.DeliveryDateTime:HH:mm}");
     Console.WriteLine("\n"+"Modify: [1]Items  [2]Address  [3]Delivery Time: ");
     int useroption = Convert.ToInt32(Console.ReadLine());
     while (true)
     {
-        if(useroption == 1)
+        double oldTotal = selectOrder.OrderTotal;
+
+        if (useroption == 1)
         {
             Console.WriteLine("Items:");
             int j = 1;
@@ -431,7 +456,7 @@ void modifyOrder()
             Console.WriteLine($"Item: {selecteditem.ItemName}"+"\n"+$"Qty: {selecteditem.QtyOrdered}");
             Console.WriteLine("Modify"+"\n"+ "[1]Quantity [2]Remove this item [3]Add customisation: ");
             int choice = Convert.ToInt32(Console.ReadLine());
-
+            
             while (true)
             {
                 if(choice == 1)
@@ -440,7 +465,6 @@ void modifyOrder()
                     int newqty = Convert.ToInt32(Console.ReadLine());
                     selecteditem.QtyOrdered = newqty;
                     Console.WriteLine("quantity updated!");
-
                     break;
                 }
                 else if(choice == 2)
@@ -461,25 +485,64 @@ void modifyOrder()
                     continue;
                 }
             }
-            double newTotal = 5; // delivery fee
+            double newTotal = 5; //update order total
             foreach (OrderedFoodItem item in selectOrder.OrderedFoodItems)
             {
                 newTotal += item.CalculateSubtotal();
             }
             selectOrder.OrderTotal = newTotal;
-            Console.WriteLine($"Updated Order Total: ${selectOrder.OrderTotal}");
+            if (selectOrder.OrderTotal > oldTotal)
+            {
+                Console.WriteLine($"Order total increased from ${oldTotal} to ${selectOrder.OrderTotal}");
+                Console.WriteLine("Proceed to payment? [Y/N]: ");
+                string pay = Console.ReadLine().ToUpper();
+                if (pay == "Y")
+                {
+                    while (true)
+                    {
+                        Console.WriteLine("Payment Method:");
+                        Console.WriteLine("[CC] Credit Card / [PP] PayPal / [CD] Cash on Delivery");
+                        string method = Console.ReadLine().ToUpper();
 
-            //Console.WriteLine($"Modified: {selecteditem.ToString()}");
+                        if (method == "CC" || method == "PP" || method == "CD")
+                        {
+                            selectOrder.OrderPaymentMethod = method;
+                            Console.WriteLine("Payment successful.");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid payment method.");
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Modification cancelled");
+                    selectOrder.OrderTotal = oldTotal;
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Order updated successfully");
+            }
             break;
         }
         else if(useroption == 2)
         {
             Console.WriteLine("Enter new address: ");
-
+            string newaddr = Console.ReadLine();
+            selectOrder.DeliveryAddress = newaddr;
+            Console.WriteLine($"Address updated. New address: {selectOrder.DeliveryAddress}");
         }
         else if(useroption == 3)
         {
             Console.WriteLine("Enter new delivery time (hh:mm): ");
+            DateTime newdeltime = Convert.ToDateTime(Console.ReadLine());
+            DateTime updatedtime = new DateTime(selectOrder.DeliveryDateTime.Year,selectOrder.DeliveryDateTime.Month,selectOrder.DeliveryDateTime.Day,newdeltime.Hour,newdeltime.Minute,0);
+            selectOrder.DeliveryDateTime = updatedtime;
+            Console.WriteLine($"Order {selectOrder.OrderId} updated. New delivery time: {selectOrder.DeliveryDateTime:HH:mm}");
         }
         else
         {
@@ -488,5 +551,5 @@ void modifyOrder()
         }
         break;
     }
-
 }
+modifyOrder();
