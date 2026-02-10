@@ -21,7 +21,6 @@ using System.Text;
 // todo 8: delete an existing order
 
 // ==============================================
-<<<<<<< HEAD
 
 // collections
 // initialise a list to hold all restaurants's details
@@ -959,5 +958,3 @@ void displayTotalOrderAmt()
     Console.WriteLine($"Total Refund Amount: {totalRefund}");
     Console.WriteLine($"Final Amount Gruberoo Earning: {finalearning}");
 }
-=======
->>>>>>> 0b66af7a778dece65d80c0fdd1ef92cd672b4e0f
