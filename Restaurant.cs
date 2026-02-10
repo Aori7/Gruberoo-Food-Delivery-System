@@ -16,6 +16,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         private List<Menu> menus = new List<Menu>();
         private Queue<Order> orderQueue;
         private List<SpecialOffer> specialOfferList;
+        private Stack<Order> refundOrders;
 
         // properties
         public string RestaurantId
@@ -49,7 +50,11 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return specialOfferList; }
             set { specialOfferList = value; }
         }
-
+        public Stack<Order> RefundOrders
+        {
+            get { return refundOrders; }
+            set { refundOrders = value; }
+        }
         // default constructors
         public Restaurant()
         {
@@ -68,6 +73,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
             }
             OrderQueue = new Queue<Order>();
             SpecialOfferList = new List<SpecialOffer>();
+            RefundOrders = new Stack<Order>();
         }
 
         // other methods

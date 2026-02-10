@@ -11,10 +11,7 @@ namespace PRG2_ASG_Gruberoo_Del_System
         //private attributes
         private string menuId;
         private string menuName;
-        //ref
         private List<FoodItem> foodItems;
-        private Restaurant restaurant;
-
         // properties
         public string MenuId
         {
@@ -31,66 +28,36 @@ namespace PRG2_ASG_Gruberoo_Del_System
             get { return foodItems; }
             set { foodItems = value; }
         }
-        public Restaurant Restaurant
-        {
-            get { return restaurant;}
-            set { restaurant = value; }
-        }
 
         //constructors
         //default constructor   
         public Menu()
         {
-            FoodItems = new List<FoodItem>();
-            Restaurant = new Restaurant();
+            foodItems = new List<FoodItem>();
         }
         //parameterized constructor
-        public Menu(string id, string name)
+        public Menu(string menuId, string menuName)
         {
-            MenuId = id;
-            MenuName = name;
-            FoodItems = new List<FoodItem>();
-            Restaurant = new Restaurant();
+            this.menuId = menuId;
+            this.menuName = menuName;
+            foodItems = new List<FoodItem>();
         }
 
         //other methods
         public void AddFoodItem(FoodItem foodItem)
         {
-            FoodItems.Add(foodItem);
+            foodItems.Add(foodItem);
         }
         public bool RemoveFoodItem(FoodItem foodItem)
         {
-            if (FoodItems.Count == 0)
-            {
-                Console.WriteLine("No food items to remove");
-                return false;
-            }
-            else
-            {
-                foreach (FoodItem fi in FoodItems)
-                {
-                    if (fi == foodItem)
-                    {
-                        FoodItems.Remove(foodItem);
-                        return true;
-                    }
-                }
-            }
-            return false;
+            return foodItems.Remove(foodItem);
         }
         public void DisplayFoodItems()
         {
-            if(FoodItems.Count == 0)
+            foreach (FoodItem item in foodItems) 
             {
-                Console.WriteLine("no food items in this menu");
+                Console.WriteLine(item);
             }
-            else
-            {
-                foreach (FoodItem item in FoodItems)
-                {
-                    Console.WriteLine(item);
-                }
-            }    
         }
         //to string method
         public override string ToString()
