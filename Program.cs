@@ -482,9 +482,14 @@ void createnewOrder()
         }
         break;
     }
-    Order order = new Order(newOrderId, DateTime.Now, "Pending", deldt, delAddr, paymentmtd, true, cust, rest, null);
+    DateTime deliveryDateTime = deldt.Date + deltime.TimeOfDay;
+    Order order = new Order(newOrderId, DateTime.Now, "Pending", deliveryDateTime, delAddr,paymentmtd,true,cust,rest,null);
     cust.AddOrder(order); // add to cust's order
     rest.OrderQueue.Enqueue(order); // add to order queue
+    foreach (OrderedFoodItem item in orderedfood)
+    {
+        order.AddOrderedFoodItem(item);
+    }
     Console.WriteLine($"Order {order.OrderId} created successfully! Status: {order.OrderStatus}");
     // Console.WriteLine($"Orders in queue for {rest.RestaurantId}: {rest.OrderQueue.Count}"); // test, remove after
 }
