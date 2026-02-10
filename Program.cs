@@ -478,30 +478,30 @@ void TodaysUnprocessedOrders()
 
 // ===================================================== while loop =====================================================
 
-//int totalRestaurants = 0;
-//int totalFoodItems = 0;
-//int totalCustomers = 0;
-//int totalOrders = 0;
-//foreach (Restaurant rest in restaurants)
-//{
-//    totalRestaurants += 1;
-//    foreach (Order ord in rest.OrderQueue)
-//    {
-//        totalOrders += 1;
-//        totalCustomers += 1;
-//        //foreach(Customer cust in ord.Customer)
-//        //{
-//        //    totalCustomers += 1;
-//        //}
-//        foreach (FoodItem fi in ord.OrderedFoodItems)
-//        {
-//            totalFoodItems += 1;
-//        }
-//    }
+    //int totalRestaurants = 0;
+    //int totalFoodItems = 0;
+    //int totalCustomers = 0;
+    //int totalOrders = 0;
+    //foreach (Restaurant rest in restaurants)
+    //{
+    //    totalRestaurants += 1;
+    //    foreach (Order ord in rest.OrderQueue)
+    //    {
+    //        totalOrders += 1;
+    //        totalCustomers += 1;
+    //        //foreach(Customer cust in ord.Customer)
+    //        //{
+    //        //    totalCustomers += 1;
+    //        //}
+    //        foreach (FoodItem fi in ord.OrderedFoodItems)
+    //        {
+    //            totalFoodItems += 1;
+    //        }
+    //    }
 
-//}
-//Console.WriteLine("Welcome to the Gruberoo Food Delivery System");
-//Console.WriteLine($"{totalRestaurants} restaurants loaded!");
-//Console.WriteLine($"{totalFoodItems} food items loaded!");
-//Console.WriteLine($"{totalCustomers} customers loaded!");
-//Console.WriteLine($"{totalOrders} orders loaded!");
+    //}
+    //Console.WriteLine("Welcome to the Gruberoo Food Delivery System");
+    //Console.WriteLine($"{totalRestaurants} restaurants loaded!");
+    //Console.WriteLine($"{totalFoodItems} food items loaded!");
+    //Console.WriteLine($"{totalCustomers} customers loaded!");
+    //Console.WriteLine($"{totalOrders} orders loaded!");
