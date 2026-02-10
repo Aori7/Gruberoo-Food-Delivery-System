@@ -20,8 +20,9 @@ using System.Text;
 
 // ==============================================
 
-// ===================================================== todo 1 =====================================================
-// initialise a list to hold all restaurants's details
+
+// ===================================================== todo 1 (Rui Min) =====================================================
+// initialise restaurant list
 List<Restaurant> restaurants = new List<Restaurant>();
 // method to load the file into the collection
 void LoadRestaurants()
@@ -81,11 +82,10 @@ LoadFoodItems();
 //        menu.DisplayFoodItems();
 //    }
 //}
-// ===================================================== todo 2 (partner) =====================================================
+
+// ===================================================== todo 2 (Adawiyah) =====================================================
 // load files (customers and orders)
-
 List<Customer> customerList = new List<Customer>();
-
 // load, read, and create objects - customer
 void loadCust()
 {
@@ -103,7 +103,6 @@ void loadCust()
         customerList.Add(cust);
     }
 }
-loadCust();
 
 void loadOrder()
 {
@@ -162,10 +161,8 @@ void loadOrder()
         custObj.AddOrder(order);
     }
 }
-loadOrder();
-// ===================================================== todo 3 (partner) =====================================================
-// ===================================================== todo 4 =====================================================
 
+// ===================================================== todo 4 (Rui Min) =====================================================
 void ListAllOrders()
 {
     List<Order> allOrders = new List<Order>();
@@ -177,7 +174,7 @@ void ListAllOrders()
         }
     }
 
-    allOrders = allOrders.OrderBy(o => o.OrderId).ToList();         // is this allowed?
+    allOrders = allOrders.OrderBy(o => o.OrderId).ToList();
 
     Console.WriteLine("All Orders");
     Console.WriteLine("==========");
@@ -189,14 +186,13 @@ void ListAllOrders()
         string restName = order.Restaurant.RestaurantName;
         int ordID = order.OrderId;
         string custName = order.Customer.CustomerName;
-        string ordTime = order.OrderDateTime.ToString("HH:mm");
+        string delTime = order.DeliveryDateTime.ToString("HH:mm");
         double amt = order.OrderTotal;
         string status = order.OrderStatus;
 
-        Console.WriteLine($"{ordID,-8}\t{custName,-10}\t{restName,-13}\t{ordTime,-18}\t{amt,-10:C}\t{status,-9}");
+        Console.WriteLine($"{ordID,-8}\t{custName,-10}\t{restName,-13}\t{delTime,-18}\t{amt,-10:C}\t{status,-9}");
     }
 }
-
 
 
 //Console.WriteLine("All Orders");                  // sorted by rest name, not ordid
@@ -224,17 +220,17 @@ void ListAllOrders()
 //    }
 //}
 
-// ===================================================== todo 6 =====================================================
+// ===================================================== todo 6 (Rui Min) =====================================================
 void ProcessOrder()
 {
     Console.WriteLine("Process Order");
     Console.WriteLine("=============");
-    Console.Write("Enter Restaurant ID: ");
-    string inputRestID = Console.ReadLine();
-    Console.WriteLine();
     Restaurant? restFound = null;
     while (restFound == null)
     {
+        Console.Write("Enter Restaurant ID: ");
+        string inputRestID = Console.ReadLine();
+        Console.WriteLine();
         foreach (Restaurant rest in restaurants)
         {
             if (rest.RestaurantId == inputRestID)
@@ -242,7 +238,7 @@ void ProcessOrder()
                 restFound = rest;
             }
         }
-        if(restFound == null)
+        if (restFound == null)
         {
             Console.WriteLine("Invalid Restaurant ID");
         }
@@ -258,7 +254,7 @@ void ProcessOrder()
             Console.WriteLine($"{i}. {ordFI.ItemName} – {ordFI.QtyOrdered}");
             i++;
         }
-        string time = order.OrderDateTime.ToString("HH:mm");
+        string time = order.DeliveryDateTime.ToString("HH:mm");
         Console.WriteLine($"Delivery date/time: {time}");
         Console.WriteLine($"Total Amount: {order.OrderTotal}");
         Console.WriteLine($"Order Status: {order.OrderStatus}");
@@ -301,22 +297,20 @@ void ProcessOrder()
             }
             else
             {
-                Console.WriteLine("Invalid choice. Please choose again.");
+                Console.WriteLine("Invalid Choice.");
                 continue;
             }
         }
     }
 }
 
-// ===================================================== todo 7 (partner) =====================================================
-
-// ===================================================== todo 8 =====================================================
+// ===================================================== todo 8 (Rui Min) =====================================================
 void DeleteOrder()
 {
     Console.WriteLine("Delete Order");
     Console.WriteLine("============");
     // valid email
-    Customer? custFound = null ;
+    Customer? custFound = null;
     while (custFound == null)
     {
         Console.Write("Enter Customer Email: ");
@@ -328,19 +322,20 @@ void DeleteOrder()
             {
                 custFound = cust;
                 Console.WriteLine("Pending Orders: ");
-                foreach(Order ord in cust.Orders)
+                foreach (Order ord in cust.Orders)
                 {
-                    if(ord.OrderStatus == "Pending")
+                    if (ord.OrderStatus == "Pending")
                     {
                         Console.WriteLine(ord.OrderId);
                     }
                 }
-            
+
             }
         }
         if (custFound == null)
         {
             Console.WriteLine("Invalid Email.");
+            Console.WriteLine();
         }
     }
     // valid orderid==============================================
@@ -364,7 +359,7 @@ void DeleteOrder()
                     Console.WriteLine($"{i}. {ordFI.ItemName} – {ordFI.QtyOrdered}");
                     i++;
                 }
-                string time = ord.OrderDateTime.ToString("HH:mm");
+                string time = ord.DeliveryDateTime.ToString("HH:mm");
                 Console.WriteLine($"Delivery date/time: {time}");
                 Console.WriteLine($"Total Amount: {ord.CalculateOrderTotal():C}");
                 Console.WriteLine($"Order Status: {ord.OrderStatus}");
@@ -373,6 +368,7 @@ void DeleteOrder()
         if (orderFound == null)
         {
             Console.WriteLine("Invalid Order ID.");
+            Console.WriteLine();
         }
     }
     // valid option======================================================
@@ -383,13 +379,13 @@ void DeleteOrder()
         Console.Write("Confirm deletion? [Y/N]: ");
         string inputOption = Console.ReadLine().ToUpper();
 
-        if(inputOption == "N")
+        if (inputOption == "N")
         {
             Console.WriteLine();
             validOption = true;
-            Console.WriteLine($"Order {orderFound.OrderId} not deleted.");  
+            Console.WriteLine($"Order {orderFound.OrderId} not deleted.");
         }
-        else if(inputOption == "Y")
+        else if (inputOption == "Y")
         {
             Console.WriteLine();
             validOption = true;
@@ -397,33 +393,16 @@ void DeleteOrder()
             orderFound.OrderStatus = "Cancelled";
             Console.WriteLine($"Order {orderFound.OrderId} cancelled. Refund of {orderFound.CalculateOrderTotal():C} processed.");
         }
-        
+
         else
         {
             Console.WriteLine("Invalid Option.");
+            Console.WriteLine();
         }
     }
 }
 
-
-//Delete Order
-//============
-//Enter Customer Email: alice.tan@email.com
-//Pending Orders:
-//1004
-//1008
-//Enter Order ID: 1004
-//Customer: Alice Tan
-//Ordered Items:
-//1. Chicken Rice - 2
-//2. Beef Burger – 1
-//Delivery date/time: 15/02/2026 14:00
-//Total Amount: $25.80
-//Order Status: Pending
-//Confirm deletion? [Y/N]: Y
-//Order 1004 cancelled. Refund of $25.80 processed.
-
-// ===================================================== advanced feature a) =====================================================
+// ===================================================== advanced feature a) (Rui Min) =====================================================
 
 void TodaysUnprocessedOrders()
 {
@@ -438,10 +417,9 @@ void TodaysUnprocessedOrders()
     int ordersPending = 0;
     int ordersRejected = 0;
     int ordersPreparing = 0;
-    DateTime today = DateTime.Now;
-    foreach(Order order in allOrders)
+    foreach (Order order in allOrders)
     {
-        if(order.OrderStatus == "Pending" && today == order.DeliveryDateTime)
+        if (order.OrderStatus == "Pending" && order.DeliveryDateTime.Date == DateTime.Today.Date)
         {
             ordersPending += 1;
             //int timeDiff = Convert.ToInt32(order.DeliveryDateTime.ToString()) - Convert.ToInt32(order.OrderDateTime.ToString());
@@ -468,40 +446,3 @@ void TodaysUnprocessedOrders()
     double percentage = Convert.ToDouble(ordersPending) / Convert.ToDouble(allOrders.Count) * 100;
     Console.WriteLine($"% of automatically processed orders against all orders: {percentage:F2}%");
 }
-
-
-
-
-
-
-
-
-// ===================================================== while loop =====================================================
-
-    //int totalRestaurants = 0;
-    //int totalFoodItems = 0;
-    //int totalCustomers = 0;
-    //int totalOrders = 0;
-    //foreach (Restaurant rest in restaurants)
-    //{
-    //    totalRestaurants += 1;
-    //    foreach (Order ord in rest.OrderQueue)
-    //    {
-    //        totalOrders += 1;
-    //        totalCustomers += 1;
-    //        //foreach(Customer cust in ord.Customer)
-    //        //{
-    //        //    totalCustomers += 1;
-    //        //}
-    //        foreach (FoodItem fi in ord.OrderedFoodItems)
-    //        {
-    //            totalFoodItems += 1;
-    //        }
-    //    }
-
-    //}
-    //Console.WriteLine("Welcome to the Gruberoo Food Delivery System");
-    //Console.WriteLine($"{totalRestaurants} restaurants loaded!");
-    //Console.WriteLine($"{totalFoodItems} food items loaded!");
-    //Console.WriteLine($"{totalCustomers} customers loaded!");
-    //Console.WriteLine($"{totalOrders} orders loaded!");
