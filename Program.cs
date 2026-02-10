@@ -76,7 +76,13 @@ LoadFoodItems();
 List<Customer> customerList = new List<Customer>();
 loadCust();
 loadOrder();
-
+displayRestMenu();
+string[] lines = File.ReadAllLines("orders.csv");
+string[] lastRow = lines[lines.Length - 1].Split(',');
+int newOrderId = Convert.ToInt32(lastRow[0]) + 1; // generate a new order id 
+createnewOrder();
+modifyOrder();
+displayTotalOrderAmt();
 // feature 1 ====================================
 // todo 2: load files (customers and orders)
 
@@ -169,13 +175,10 @@ void displayRestMenu()
         }
     }
 }
-displayRestMenu();
+
 
 //feature 3 ====================================
 // todo 5: create a new order
-string[] lines = File.ReadAllLines("orders.csv");
-string[] lastRow = lines[lines.Length - 1].Split(',');
-int newOrderId = Convert.ToInt32(lastRow[0]) + 1; // generate a new order id 
 
 void createnewOrder()
 {
@@ -262,6 +265,7 @@ void createnewOrder()
     string specialRequest = ""; 
     Console.WriteLine("Add special request? [Y/N]: ");
     string request = Console.ReadLine().ToUpper(); //come back later to continue
+    
     if (request != "Y" && request != "N")
     {
         Console.WriteLine("Invalid input! no request added.");
@@ -308,9 +312,15 @@ void createnewOrder()
         }
         break;
     }
-    Order order = new Order(newOrderId, DateTime.Now, "Pending", deldt, delAddr,paymentmtd,true,cust,rest,null);
+    DateTime deliveryDateTime = deldt.Date + deltime.TimeOfDay;
+    Order order = new Order(newOrderId, DateTime.Now, "Pending", deliveryDateTime, delAddr,paymentmtd,true,cust,rest,null);
+    order.OrderTotal = total;
     cust.AddOrder(order); // add to cust's order
     rest.OrderQueue.Enqueue(order); // add to order queue
+    foreach (OrderedFoodItem item in orderedfood)
+    {
+        order.AddOrderedFoodItem(item);
+    }
     Console.WriteLine($"Order {order.OrderId} created successfully! Status: {order.OrderStatus}");
     string itemStr = "";
     for (int i = 0; i < orderedfood.Count; i++) 
@@ -337,7 +347,7 @@ void createnewOrder()
         sw.WriteLine(csvline);
     }
 }
-createnewOrder();
+
 
 // feature 4 ====================================
 // todo 7: modify an existing order
@@ -548,7 +558,7 @@ void modifyOrder()
         break;
     }
 }
-modifyOrder();
+
 
 // advanced feature (b) =========================
 void displayTotalOrderAmt()
@@ -583,4 +593,3 @@ void displayTotalOrderAmt()
     Console.WriteLine($"Total Refund Amount: {totalRefund}");
     Console.WriteLine($"Final Amount Gruberoo Earning: {finalearning}");
 }
-displayTotalOrderAmt();
