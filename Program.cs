@@ -340,8 +340,7 @@ void createnewOrder()
         sw.WriteLine(csvline);
     }
 }
-createnewOrder();
-
+//createnewOrder();
 
 // feature 4
 // todo 7: modify an existing order
@@ -552,4 +551,39 @@ void modifyOrder()
         break;
     }
 }
-modifyOrder();
+//modifyOrder();
+
+// advanced feature (b)
+void displayTotalOrderAmt()
+{
+    double totalorderAmt = 0;
+    double totalRefund = 0;
+    double delFee = 5;
+    foreach (Restaurant rest in restaurants)
+    {
+        double restTotalAmt = 0;
+        double restRefundAmt = 0;
+        foreach (Order order in rest.OrderQueue)
+        {
+            if (order.OrderStatus == "Delivered")
+            {
+                restTotalAmt += order.OrderTotal - delFee;
+            }
+            else if (order.OrderStatus == "Rejected" || order.OrderStatus == "Cancelled")
+            {
+                restRefundAmt += order.OrderTotal;
+            }
+        }
+        Console.WriteLine($"Restaurant: {rest.RestaurantName}");
+        Console.WriteLine($"Total Order Amount: {restTotalAmt}");
+        Console.WriteLine($"Total Refund Amount: {restRefundAmt}");
+        Console.WriteLine();
+        totalorderAmt += restTotalAmt;
+        totalRefund += restRefundAmt;
+    }
+    double finalearning = totalorderAmt - totalRefund;
+    Console.WriteLine($"Total Order Amount: {totalorderAmt}");
+    Console.WriteLine($"Total Refund Amount: {totalRefund}");
+    Console.WriteLine($"Final Amount Gruberoo Earning: {finalearning}");
+}
+displayTotalOrderAmt();
